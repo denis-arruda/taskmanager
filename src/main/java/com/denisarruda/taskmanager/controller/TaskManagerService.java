@@ -6,13 +6,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import org.springframework.stereotype.Service;
-
 import com.denisarruda.taskmanager.domain.Status;
 import com.denisarruda.taskmanager.domain.Task;
 import com.denisarruda.taskmanager.persistence.TaskJpa;
 
-@Service
+import jakarta.enterprise.context.ApplicationScoped;
+
+@ApplicationScoped
 public class TaskManagerService {
 
   private final TaskJpa taskJpa;
