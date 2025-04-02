@@ -1,6 +1,6 @@
 # Task Manager API
 
-This project provides a simple REST API and a web interface for managing tasks. It's built with Spring Boot and provides endpoints for creating, retrieving, updating, and deleting tasks.
+This project provides a simple REST API and a web interface for managing tasks. It is built using Quarkus and provides endpoints for creating, retrieving, updating, and deleting tasks. Additionally, there is a corresponding implementation of this project using Spring Boot available in the `spring` branch of this repository.
 
 ## Prerequisites
 
@@ -15,18 +15,18 @@ Before running this application, make sure you have the following installed:
 1. **Build and Run:**
 
    - Open a terminal and navigate to the root directory of the project.
-   - Run the following command:
+   - Run the following command to start the Quarkus application in development mode:
      ```bash
-     ./mvnw spring-boot:run
+     ./mvnw quarkus:dev
      ```
-   - This command will start the Spring Boot application. You should see log messages indicating that the application is starting up.
+   - This command will start the Quarkus application. You should see log messages indicating that the application is starting up.
 
 2. **Access the API:**
-   - Once the application is running, you can access the API endpoints at `http://localhost:8080/api/tasks`.
 
-## API Documentation
+   - Once the application is running, you can access the API endpoints at .
 
-You can find the API documentation [here](http://localhost:8080/swagger-ui.html).
+3. **OpenAPI Documentation:**
+   - The OpenAPI documentation for the API is available at .
 
 ## Running Tests
 
