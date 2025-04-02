@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.denisarruda</groupId>
 	<artifactId>taskmanager</artifactId>
-	<version>0.0.4-SPRING-SNAPSHOT</version>
+	<version>0.0.5-SPRING-SNAPSHOT</version>
 	<name>taskmanager</name>
 	<description>Task Manager</description>
 	<url/>
