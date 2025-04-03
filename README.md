@@ -7,8 +7,7 @@ This project provides a simple REST API and a web interface for managing tasks. 
 Before running this application, make sure you have the following installed:
 
 - **Java 21:** You can download the appropriate JDK for your operating system from [https://www.oracle.com/java/technologies/downloads/](https://www.oracle.com/java/technologies/downloads/).
-- **Docker:** Download and install Docker Desktop from [https://www.docker.com/products/docker-desktop/](https://www.docker.com/products/docker-desktop/).
-- **Docker Compose:** Docker Compose is usually included with Docker Desktop. If not, follow the instructions for your OS on the Docker website.
+- **MongoDB:** You can find installation instructions for MongoDB on the official MongoDB website at [https://www.mongodb.com/docs/manual/installation/](https://www.mongodb.com/docs/manual/installation/).
 
 ## Running the Application
 
@@ -23,10 +22,10 @@ Before running this application, make sure you have the following installed:
 
 2. **Access the API:**
 
-   - Once the application is running, you can access the API endpoints at .
+   - Once the application is running, you can access the API endpoints at http://localhost:8080/api/tasks/.
 
 3. **OpenAPI Documentation:**
-   - The OpenAPI documentation for the API is available at .
+   - The OpenAPI documentation for the API is available at http://localhost:8080/q/swagger-ui/.
 
 ## Running Tests
 
