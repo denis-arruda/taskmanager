@@ -7,7 +7,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.bson.Document;
-
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
 import com.denisarruda.taskmanager.domain.Status;
@@ -34,8 +34,9 @@ public class TaskJpa {
   }
 
   public Task updateTask(Task task) {
-    // You might want to add logic to check if the task exists before updating
-    return saveTask(task);
+    Document taskDocument = toTaskDocument(task);
+    taskRepository.update(taskDocument);
+    return toTask(taskRepository.findById(task.id()));
   }
 
   public void deleteTask(String id) {
@@ -51,11 +52,13 @@ public class TaskJpa {
 
   private Document toTaskDocument(Task task) {
     Document taskDocument = new Document();
-    taskDocument.append("id", task.id());
+    if (task.id() != null) {
+      taskDocument.append("_id", new ObjectId(task.id()));
+    }
     taskDocument.append("title", task.title());
     taskDocument.append("description", task.description());
     taskDocument.append("dueDate", Date.from(task.dueDate().atStartOfDay(ZoneId.systemDefault()).toInstant()));
-    taskDocument.append("status", task.status());
+    taskDocument.append("status", task.status().toString());
     return taskDocument;
   }
 
@@ -65,10 +68,10 @@ public class TaskJpa {
 
   private Task toTask(Document taskDocument) {
     return new Task(
-        taskDocument.getString("id"),
+        taskDocument.getObjectId("_id").toHexString(),
         taskDocument.getString("title"),
         taskDocument.getString("description"),
         taskDocument.getDate("dueDate").toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate(),
-        taskDocument.get("status", Status.class));
+        Status.valueOf(taskDocument.getString("status")));
   }
 }

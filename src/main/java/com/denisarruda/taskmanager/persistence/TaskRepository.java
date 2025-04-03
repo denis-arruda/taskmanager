@@ -1,10 +1,13 @@
 package com.denisarruda.taskmanager.persistence;
 
+import static com.mongodb.client.model.Filters.eq;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
@@ -24,18 +27,22 @@ public class TaskRepository {
   }
 
   public Optional<Document> findById(String id) {
-    Document taskDocument = getCollection().find(new Document("id", id)).first();
+    Document taskDocument = getCollection().find(eq("_id", new ObjectId(id))).first();
     return Optional.ofNullable(taskDocument);
   }
 
   public String save(Document taskDocument) {
     InsertOneResult result = getCollection().insertOne(taskDocument);
-    return result.getInsertedId().asString().getValue();
+    return result.getInsertedId().asObjectId().getValue().toHexString();
   }
 
   public void update(Document taskDocument) {
-    String id = taskDocument.getString("id");
-    getCollection().replaceOne(new Document("id", id), taskDocument);
+    Document query = new Document();
+    query.append("_id", taskDocument.getObjectId("_id"));
+
+    Document update = new Document();
+    update.append("$set", taskDocument);
+    getCollection().updateOne(query, update);
   }
 
   private MongoCollection<Document> getCollection() {
@@ -43,6 +50,6 @@ public class TaskRepository {
   }
 
   public void deleteById(String id) {
-    getCollection().deleteOne(new Document("id", id));
+    getCollection().deleteOne(new Document("_id", new ObjectId(id)));
   }
 }

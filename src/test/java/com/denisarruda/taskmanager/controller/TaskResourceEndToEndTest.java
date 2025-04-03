@@ -3,6 +3,7 @@ package com.denisarruda.taskmanager.controller;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.mockito.Mockito.times;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -49,7 +50,7 @@ class TaskResourceEndToEndTest {
             "dueDate", is(LocalDate.now().toString()),
             "status", is(Status.PENDING.toString()));
 
-    Mockito.verify(taskManagerService).createTask(Mockito.any(Task.class));
+    Mockito.verify(taskManagerService, times(1)).createTask(Mockito.any(Task.class));
     Mockito.verifyNoMoreInteractions(this.taskManagerService);
   }
 
@@ -74,7 +75,7 @@ class TaskResourceEndToEndTest {
             "dueDate", is(LocalDate.now().toString()),
             "status", is(Status.PENDING.toString()));
 
-    Mockito.verify(taskManagerService).getTask(Mockito.eq(newTask.id()));
+    Mockito.verify(taskManagerService, times(1)).getTask(Mockito.eq(newTask.id()));
     Mockito.verifyNoMoreInteractions(this.taskManagerService);
   }
 
@@ -101,7 +102,7 @@ class TaskResourceEndToEndTest {
             "dueDate", is(LocalDate.now().toString()),
             "status", is(Status.IN_PROGRESS.toString()));
 
-    Mockito.verify(taskManagerService).updateTask(Mockito.any(Task.class));
+    Mockito.verify(taskManagerService, times(1)).updateTask(Mockito.any(Task.class));
     Mockito.verifyNoMoreInteractions(this.taskManagerService);
   }
 
@@ -114,7 +115,7 @@ class TaskResourceEndToEndTest {
         .then()
         .statusCode(HttpStatus.NO_CONTENT.value());
 
-    Mockito.verify(taskManagerService).deleteTask(Mockito.eq("11726"));
+    Mockito.verify(taskManagerService, times(1)).deleteTask(Mockito.eq("11726"));
     Mockito.verifyNoMoreInteractions(this.taskManagerService);
   }
 
@@ -155,7 +156,8 @@ class TaskResourceEndToEndTest {
             "[2].dueDate", is(task3.dueDate().toString()),
             "[2].status", is(Status.PENDING.toString()));
 
-    Mockito.verify(taskManagerService).getTasksByStatusAndDueDate(Mockito.eq(Status.PENDING), Mockito.isNull(),
+    Mockito.verify(taskManagerService, times(1)).getTasksByStatusAndDueDate(Mockito.eq(Status.PENDING),
+        Mockito.isNull(),
         Mockito.eq("dueDate"), Mockito.eq("asc"));
     Mockito.verifyNoMoreInteractions(this.taskManagerService);
   }
