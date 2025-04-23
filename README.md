@@ -1,6 +1,6 @@
 # Task Manager API
 
-This project provides a simple REST API and a web interface for managing tasks. It is built using Quarkus and provides endpoints for creating, retrieving, updating, and deleting tasks. Additionally, there is a corresponding implementation of this project using Spring Boot available in the `spring` branch of this repository.
+This project provides a simple REST API for managing tasks. It is built using Quarkus and provides endpoints for creating, retrieving, updating, and deleting tasks. Additionally, there is a corresponding implementation of this project using Spring Boot available in the `spring` branch of this repository.
 
 ## Prerequisites
 
