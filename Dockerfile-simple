@@ -1,0 +1,9 @@
+FROM bellsoft/liberica-openjre-debian:25
+
+WORKDIR /app
+
+COPY target/taskmanager-0.0.6-SPRING-SNAPSHOT.jar app.jar
+
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
