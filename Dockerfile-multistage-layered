@@ -1,0 +1,18 @@
+FROM maven:3-eclipse-temurin-25 AS build
+WORKDIR /build
+COPY src ./src
+COPY pom.xml .
+RUN --mount=type=cache,target=~/.m2 mvn -f /build/pom.xml package -DskipTests
+
+FROM bellsoft/liberica-openjre-debian:25 AS extractor
+WORKDIR /extract
+COPY --from=build /build/target/taskmanager-0.0.6-SPRING-SNAPSHOT.jar application.jar
+RUN java -Djarmode=tools -jar application.jar extract --layers --destination extracted
+
+FROM bellsoft/liberica-openjre-debian:25
+WORKDIR /application
+COPY --from=extractor /extract/extracted/dependencies/ ./
+COPY --from=extractor /extract/extracted/spring-boot-loader/ ./
+COPY --from=extractor /extract/extracted/snapshot-dependencies/ ./
+COPY --from=extractor /extract/extracted/application/ ./
+ENTRYPOINT ["java", "-jar", "application.jar"]
